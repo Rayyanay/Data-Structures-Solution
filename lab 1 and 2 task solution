@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, sum;
+    cin >> a >> b;
+    sum = a + b;
+    cout << "Sum = " << sum << endl;
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, diff;
+    cin >> a >> b;
+    diff = a - b;
+    cout << "Difference = " << diff << endl;
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int dividend, divisor, quotient, remainder;
+    cin >> dividend >> divisor;
+    quotient = dividend / divisor;
+    remainder = dividend % divisor;
+    cout << "Quotient = " << quotient << endl;
+    cout << "Remainder = " << remainder << endl;
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, product;
+    cin >> a >> b;
+    product = a * b;
+    cout << "Product = " << product << endl;
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
