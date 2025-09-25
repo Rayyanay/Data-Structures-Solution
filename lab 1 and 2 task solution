@@ -1,60 +1,315 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-int main() {
-    int a, b, sum;
+// Q1: Check even or odd
+void evenOdd() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+    if (num % 2 == 0) cout << num << " is Even.\n";
+    else cout << num << " is Odd.\n";
+}
+
+// Q2: Largest of two numbers
+void largestOfTwo() {
+    int a, b;
+    cout << "Enter two numbers: ";
     cin >> a >> b;
-    sum = a + b;
+    if (a > b) cout << a << " is larger.\n";
+    else if (b > a) cout << b << " is larger.\n";
+    else cout << "Both numbers are equal.\n";
+}
+
+// Q3: Print 1 to 10
+void print1to10() {
+    for (int i = 1; i <= 10; i++) cout << i << " ";
+    cout << endl;
+}
+
+// Q4: Sum of numbers 1 to n
+void sumToN() {
+    int n, sum = 0;
+    cout << "Enter n: ";
+    cin >> n;
+    for (int i = 1; i <= n; i++) sum += i;
     cout << "Sum = " << sum << endl;
-    return 0;
 }
 
+// Q5: Positive, negative, or zero
+void checkSign() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+    if (num > 0) cout << "Positive\n";
+    else if (num < 0) cout << "Negative\n";
+    else cout << "Zero\n";
+}
 
-#include <iostream>
-using namespace std;
+// Q6: Multiplication table
+void multiplicationTable() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+    for (int i = 1; i <= 10; i++)
+        cout << num << " x " << i << " = " << num * i << endl;
+}
 
-int main() {
-    int a, b, diff;
+// Q7: Factorial
+void factorial() {
+    int n, fact = 1;
+    cout << "Enter a number: ";
+    cin >> n;
+    for (int i = 1; i <= n; i++) fact *= i;
+    cout << "Factorial = " << fact << endl;
+}
+
+// Q8: Fibonacci series
+void fibonacci() {
+    int n, t1 = 0, t2 = 1, nextTerm;
+    cout << "Enter terms: ";
+    cin >> n;
+    cout << "Fibonacci: ";
+    for (int i = 1; i <= n; i++) {
+        cout << t1 << " ";
+        nextTerm = t1 + t2;
+        t1 = t2;
+        t2 = nextTerm;
+    }
+    cout << endl;
+}
+
+// Q9: Largest of three numbers
+void largestOfThree() {
+    int a, b, c;
+    cout << "Enter three numbers: ";
+    cin >> a >> b >> c;
+    if (a >= b && a >= c) cout << a << " is largest.\n";
+    else if (b >= a && b >= c) cout << b << " is largest.\n";
+    else cout << c << " is largest.\n";
+}
+
+// Q10: Leap year
+void leapYear() {
+    int year;
+    cout << "Enter year: ";
+    cin >> year;
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+        cout << year << " is a Leap Year.\n";
+    else
+        cout << year << " is not a Leap Year.\n";
+}
+
+// Q11: Print even numbers 1–100
+void evenNumbers() {
+    for (int i = 2; i <= 100; i += 2) cout << i << " ";
+    cout << endl;
+}
+
+// Q12: Print odd numbers 1–100
+void oddNumbers() {
+    for (int i = 1; i <= 100; i += 2) cout << i << " ";
+    cout << endl;
+}
+
+// Q13: Reverse a number
+void reverseNumber() {
+    int n, rev = 0;
+    cout << "Enter a number: ";
+    cin >> n;
+    while (n != 0) {
+        rev = rev * 10 + n % 10;
+        n /= 10;
+    }
+    cout << "Reversed = " << rev << endl;
+}
+
+// Q14: Sum of digits
+void sumOfDigits() {
+    int n, sum = 0;
+    cout << "Enter a number: ";
+    cin >> n;
+    while (n != 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    cout << "Sum of digits = " << sum << endl;
+}
+
+// Q15: Palindrome number
+void palindrome() {
+    int n, temp, rev = 0;
+    cout << "Enter a number: ";
+    cin >> n;
+    temp = n;
+    while (temp != 0) {
+        rev = rev * 10 + temp % 10;
+        temp /= 10;
+    }
+    if (rev == n) cout << n << " is Palindrome.\n";
+    else cout << n << " is not Palindrome.\n";
+}
+
+// Q16: Prime check
+void isPrime() {
+    int n;
+    bool prime = true;
+    cout << "Enter a number: ";
+    cin >> n;
+    if (n <= 1) prime = false;
+    else {
+        for (int i = 2; i <= n / 2; i++) {
+            if (n % i == 0) { prime = false; break; }
+        }
+    }
+    if (prime) cout << n << " is Prime.\n";
+    else cout << n << " is not Prime.\n";
+}
+
+// Q17: Prime numbers 1–100
+void primes1to100() {
+    for (int n = 2; n <= 100; n++) {
+        bool prime = true;
+        for (int i = 2; i <= n / 2; i++) {
+            if (n % i == 0) { prime = false; break; }
+        }
+        if (prime) cout << n << " ";
+    }
+    cout << endl;
+}
+
+// Q18: Power of a number
+void power() {
+    int base, exp, result = 1;
+    cout << "Enter base and exponent: ";
+    cin >> base >> exp;
+    for (int i = 1; i <= exp; i++) result *= base;
+    cout << "Result = " << result << endl;
+}
+
+// Q19: GCD
+void gcd() {
+    int a, b;
+    cout << "Enter two numbers: ";
     cin >> a >> b;
-    diff = a - b;
-    cout << "Difference = " << diff << endl;
-    return 0;
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    cout << "GCD = " << a << endl;
 }
 
-
-#include <iostream>
-using namespace std;
-
-int main() {
-    int dividend, divisor, quotient, remainder;
-    cin >> dividend >> divisor;
-    quotient = dividend / divisor;
-    remainder = dividend % divisor;
-    cout << "Quotient = " << quotient << endl;
-    cout << "Remainder = " << remainder << endl;
-    return 0;
-}
-
-
-#include <iostream>
-using namespace std;
-
-int main() {
-    int a, b, product;
+// Q20: LCM
+void lcm() {
+    int a, b;
+    cout << "Enter two numbers: ";
     cin >> a >> b;
-    product = a * b;
-    cout << "Product = " << product << endl;
-    return 0;
+    int gcd, x = a, y = b;
+    while (y != 0) {
+        int temp = y;
+        y = x % y;
+        x = temp;
+    }
+    gcd = x;
+    cout << "LCM = " << (a * b) / gcd << endl;
 }
 
+// Q21: Triangle pattern
+void starPattern() {
+    int n;
+    cout << "Enter number of rows: ";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) cout << "* ";
+        cout << endl;
+    }
+}
 
+// Q22: Multiplication tables 1–10
+void allTables() {
+    for (int i = 1; i <= 10; i++) {
+        cout << "\nTable of " << i << ":\n";
+        for (int j = 1; j <= 10; j++)
+            cout << i << " x " << j << " = " << i * j << endl;
+    }
+}
 
+// Q23: Count digits
+void countDigits() {
+    int n, count = 0;
+    cout << "Enter a number: ";
+    cin >> n;
+    while (n != 0) {
+        count++;
+        n /= 10;
+    }
+    cout << "Digits = " << count << endl;
+}
 
+// Q24: Armstrong number
+void armstrong() {
+    int n, sum = 0, temp, digits = 0;
+    cout << "Enter a number: ";
+    cin >> n;
+    temp = n;
+    while (temp != 0) {
+        digits++;
+        temp /= 10;
+    }
+    temp = n;
+    while (temp != 0) {
+        int digit = temp % 10;
+        sum += pow(digit, digits);
+        temp /= 10;
+    }
+    if (sum == n) cout << n << " is Armstrong.\n";
+    else cout << n << " is not Armstrong.\n";
+}
 
+// Q25: Sum of even and odd numbers separately
+void sumEvenOdd() {
+    int n, evenSum = 0, oddSum = 0;
+    cout << "Enter n: ";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 == 0) evenSum += i;
+        else oddSum += i;
+    }
+    cout << "Even Sum = " << evenSum << endl;
+    cout << "Odd Sum = " << oddSum << endl;
+}
 
+int main() {
+    cout << "All 25 Lab Programs Compiled in One File!\n";
+    cout << "Call the function you want to run inside main().\n";
 
+    // Example: Uncomment one at a time to test
+    // evenOdd();
+    // largestOfTwo();
+    // print1to10();
+    // sumToN();
+    // checkSign();
+    // multiplicationTable();
+    // factorial();
+    // fibonacci();
+    // largestOfThree();
+    // leapYear();
+    // evenNumbers();
+    // oddNumbers();
+    // reverseNumber();
+    // sumOfDigits();
+    // palindrome();
+    // isPrime();
+    // primes1to100();
+    // power();
+    // gcd();
+    // lcm();
+    // starPattern();
+    // allTables();
+    // countDigits();
+    // armstrong();
+    // sumEvenOdd();
 
-
-
-
-
+    return 0;
+}
