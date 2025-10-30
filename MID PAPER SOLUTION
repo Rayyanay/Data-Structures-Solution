@@ -1,0 +1,133 @@
+#include <iostream>
+using namespace std;
+
+struct ERPatient {
+    int id;
+    ERPatient* next;
+    ERPatient* prev;
+
+    ERPatient(int id) {
+        this->id = id;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+class ERQueueSystem {
+public:
+    ERPatient* head = nullptr;
+    ERPatient* tail = nullptr;
+
+    void admitCriticalPatient(int patientID) {
+        ERPatient* newnode = new ERPatient(patientID);
+
+        if (head == nullptr) {
+            head = tail = newnode;
+            cout << " First patient ID: " << patientID << " added to the system " << endl;
+            return;
+        }
+
+        cout << " Critical patient ID: " << patientID << " arrived and added at the FRONT. " << endl;
+        newnode->next = head;
+        head->prev = newnode;
+        head = newnode;
+    }
+
+    void admitRegularPatient(int patientID) {
+        ERPatient* newnode = new ERPatient(patientID);
+
+        if (head == nullptr) {
+            head = tail = newnode;
+            cout << "First patient ID : " << patientID << endl;
+            return;
+        }
+
+        cout << " Normal patient ID: " << patientID << " arrived and added at the End" << endl;
+        tail->next = newnode;
+        newnode->prev = tail;
+        tail = newnode;
+    }
+
+    void admitPatientAtPriority(int patientID, int pos) {
+        if (pos <= 1) {
+            admitCriticalPatient(patientID);
+            return;
+        }
+
+        ERPatient* temp = head;
+        int count = 1;
+        while (temp != nullptr && count < pos - 1) {
+            temp = temp->next;
+            count++;
+        }
+
+        if (temp == nullptr || temp->next == nullptr) {
+            admitRegularPatient(patientID);
+            cout << "Patient added at the End" << endl;
+            return;
+        }
+
+        ERPatient* newnode = new ERPatient(patientID);
+        newnode->next = temp->next;
+        newnode->prev = temp;
+        temp->next->prev = newnode;
+        temp->next = newnode;
+
+        cout << " Patient ID: " << patientID << " added at position " << pos << endl;
+    }
+
+    void dischargeTreatedPatient() {
+        if (head == nullptr) {
+            cout << " No patients, ER is empty " << endl;
+            return;
+        }
+
+        cout << " Patient ID: " << head->id << " has been treated and discharged. ";
+        ERPatient* temp = head;
+        head = head->next;
+
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+        else {
+            tail = nullptr;
+        }
+
+        delete temp;
+    }
+
+    void displayWaitingList() {
+        if (head == nullptr) {
+            cout << " No patients in the ER right now " << endl;
+            return;
+        }
+
+        cout << " Current ER Queue : " << endl;
+        ERPatient* temp = head;
+        int count = 0;
+
+        while (temp != nullptr) {
+            cout << "[" << temp->id << "]";
+            if (temp->next) cout << " -> ";
+            temp = temp->next;
+            count++;
+        }
+
+        cout << " Total patients waiting: " << count << endl;
+    }
+};
+
+int main() {
+    cout << "Welcome to Hospital Emergency Queue System " << "----------------------------------------------------" << endl;
+
+    ERQueueSystem er;
+
+    er.admitRegularPatient(1);
+    er.admitCriticalPatient(2);
+    er.admitPatientAtPriority(3, 2);
+
+    er.dischargeTreatedPatient();
+    er.displayWaitingList();
+
+    return 0;
+}
