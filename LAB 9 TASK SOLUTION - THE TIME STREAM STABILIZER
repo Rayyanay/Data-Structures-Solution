@@ -1,0 +1,217 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+//-----------------------------------------
+// Time Capsule Structure (BST Node)
+//-----------------------------------------
+struct TimeCapsule {
+    int year;
+    string eventName;
+    TimeCapsule* left;
+    TimeCapsule* right;
+
+    TimeCapsule(int y, string name) {
+        year = y;
+        eventName = name;
+        left = right = nullptr;
+    }
+};
+
+//-----------------------------------------
+// BST Class
+//-----------------------------------------
+class TimelineBST {
+private:
+
+    //------------------------------------------------
+    // INSERT NODE (Recursive)
+    //------------------------------------------------
+    TimeCapsule* insert(TimeCapsule* root, int year, string name) {
+        if (root == nullptr) {
+            cout << "> System: Injecting " << year << "... Timeline stable.\n";
+            return new TimeCapsule(year, name);
+        }
+
+        if (year < root->year)
+            root->left = insert(root->left, year, name);
+
+        else if (year > root->year)
+            root->right = insert(root->right, year, name);
+
+        else {
+            // Duplicate year — do nothing
+            return root;
+        }
+
+        return root;
+    }
+
+    //------------------------------------------------
+    // FIND MIN NODE (Helper for deletion)
+    //------------------------------------------------
+    TimeCapsule* findMin(TimeCapsule* root) {
+        while (root && root->left != nullptr)
+            root = root->left;
+        return root;
+    }
+
+    //------------------------------------------------
+    // DELETE NODE (Recursive)
+    //------------------------------------------------
+    TimeCapsule* remove(TimeCapsule* root, int year) {
+        if (root == nullptr)
+            return root;
+
+        if (year < root->year)
+            root->left = remove(root->left, year);
+
+        else if (year > root->year)
+            root->right = remove(root->right, year);
+
+        else {
+            // Case 1: No children
+            if (root->left == nullptr && root->right == nullptr) {
+                delete root;
+                return nullptr;
+            }
+
+            // Case 2: One child
+            else if (root->left == nullptr) {
+                TimeCapsule* temp = root->right;
+                delete root;
+                return temp;
+            }
+            else if (root->right == nullptr) {
+                TimeCapsule* temp = root->left;
+                delete root;
+                return temp;
+            }
+
+            // Case 3: Two children
+            TimeCapsule* temp = findMin(root->right);
+            root->year = temp->year;
+            root->eventName = temp->eventName;
+            root->right = remove(root->right, temp->year);
+        }
+
+        return root;
+    }
+
+    //------------------------------------------------
+    // SEARCH
+    //------------------------------------------------
+    TimeCapsule* search(TimeCapsule* root, int year) {
+        if (root == nullptr || root->year == year)
+            return root;
+
+        if (year < root->year)
+            return search(root->left, year);
+        else
+            return search(root->right, year);
+    }
+
+    //------------------------------------------------
+    // IN-ORDER PRINT
+    //------------------------------------------------
+    void inorder(TimeCapsule* root) {
+        if (root == nullptr)
+            return;
+
+        inorder(root->left);
+        cout << root->year << ": " << root->eventName << "\n";
+        inorder(root->right);
+    }
+
+    //------------------------------------------------
+    // FIND MIN YEAR
+    //------------------------------------------------
+    int findMinYear(TimeCapsule* root) {
+        if (!root) return -1;
+        while (root->left) root = root->left;
+        return root->year;
+    }
+
+    //------------------------------------------------
+    // FIND MAX YEAR
+    //------------------------------------------------
+    int findMaxYear(TimeCapsule* root) {
+        if (!root) return -1;
+        while (root->right) root = root->right;
+        return root->year;
+    }
+
+public:
+    TimeCapsule* root;
+
+    TimelineBST() {
+        root = nullptr;
+    }
+
+    //------------------------------------------------
+    // PUBLIC FUNCTIONS
+    //------------------------------------------------
+    void inject(int year, string name) {
+        root = insert(root, year, name);
+    }
+
+    void paradox(int year) {
+        cout << "\n> Alert: Paradox detected at " << year << "!\n";
+        root = remove(root, year);
+        cout << "> System: Year " << year << " removed. Timeline stabilized.\n";
+    }
+
+    void searchYear(int year) {
+        cout << "\n> Query: Searching for " << year << "...\n";
+
+        TimeCapsule* result = search(root, year);
+        if (result == nullptr)
+            cout << "> Result: Year " << year << " not found in current timeline.\n";
+        else
+            cout << "> Result: Event Found! [" << result->year << ": " 
+                 << result->eventName << "]\n";
+    }
+
+    void report() {
+        cout << "\n> COMMAND: CHRONOLOGICAL REPORT\n";
+        cout << "-------------------------------\n";
+        inorder(root);
+        cout << "-------------------------------\n";
+    }
+
+    // Boss Challenge: Time Span
+    int calculateTimeSpan() {
+        if (!root) return 0;
+        int minY = findMinYear(root);
+        int maxY = findMaxYear(root);
+        return maxY - minY;
+    }
+};
+
+//-----------------------------------------
+// MAIN — Example usage
+//-----------------------------------------
+int main() {
+    TimelineBST timeline;
+
+    timeline.inject(2050, "Mars Colony Established");
+    timeline.inject(1969, "Moon Landing");
+    timeline.inject(2100, "Warp Drive Invented");
+    timeline.inject(2000, "Y2K Bug");
+
+    timeline.searchYear(1969);
+
+    timeline.inject(1990, "World Wide Web");
+
+    timeline.paradox(2000);
+
+    timeline.report();
+
+    timeline.searchYear(2000);
+
+    // Optional: Boss Challenge Demo
+    cout << "\nTime Span of Timeline: " 
+         << timeline.calculateTimeSpan() << " years\n";
+
+    return 0;
+}
