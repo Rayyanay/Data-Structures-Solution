@@ -1,0 +1,13 @@
+Department: CSE
+202301 Alice Johnson Sem 5 CGPA 3.85
+201987 Diana Prince Sem 7 CGPA 3.78
+202440 Julia Kent Sem 4 CGPA 3.65
+...
+Total Students: 6
+Average CGPA: 3.60
+Highest CGPA: 3.90
+Lowest CGPA: 2.40
+Average Credits: 128
+
+Department: EEE
+...

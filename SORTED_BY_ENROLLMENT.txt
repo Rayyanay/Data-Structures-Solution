@@ -1,0 +1,12 @@
+Enrollment Year: 2017
+202420 Hannah Lee 3.95
+202490 Owen Reed 3.55
+202540 Tina Hall 3.90
+Average CGPA: 3.80
+
+Enrollment Year: 2018
+201987 Diana Prince 3.78
+202460 Laura Snow 3.80
+202560 Victor Cruz 2.70
+Average CGPA: 3.43
+...

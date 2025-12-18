@@ -1,0 +1,8 @@
+RANKED BY CGPA
+
+1 | 202420 | Hannah Lee | MEC | 3.95
+2 | 202540 | Tina Hall | CSE | 3.90
+3 | 202145 | Bob Smith | EEE | 3.92
+4 | 202530 | Sam King | EEE | 3.88
+5 | 202301 | Alice Johnson | CSE | 3.85
+...

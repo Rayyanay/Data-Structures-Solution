@@ -1,0 +1,11 @@
+Elite
+Hannah Lee (3.95)
+Tina Hall (3.90)
+Bob Smith (3.92)
+Count: 3 Percentage: 12.00%
+
+High Achievers
+Sam King (3.88)
+Alice Johnson (3.85)
+...
+Count: 5 Percentage: 20.00%
